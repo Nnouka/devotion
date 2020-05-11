@@ -1,6 +1,7 @@
 package com.nouks.devotion.domain.models;
 
 
+import com.nouks.devotion.domain.models.pivots.CongregationUser;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -40,4 +41,6 @@ public class User {
     )
   )
   private List<Role> roles;
+  @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+  private List<CongregationUser> congregationUsers;
 }
