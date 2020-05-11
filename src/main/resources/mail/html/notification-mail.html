@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title th:remove="all">MGSecurity Activation</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Raleway:400,300,600" />
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/normalize/3.0.2/normalize.min.css" />
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css" />
+        <style>
+            body {
+                padding-top: 2rem;
+                padding-bottom: 2rem;
+            }
+
+            h1 {
+                background-repeat: no-repeat;
+                background-position: 10px 10px;
+                background-color: #D7EBAD;
+                border: solid 1px #96A479;
+                border-radius: 6px;
+                min-height: 90px;
+                padding-left: 90px;
+                line-height: 90px;
+            }
+            .btn {
+                background-color: #4CAF50; /* Green */
+                border: none;
+                color: white;
+                padding: 16px 32px;
+                text-align: center;
+                text-decoration: none;
+                display: inline-block;
+                font-size: 16px;
+                margin: 4px 2px;
+                -webkit-transition-duration: 0.4s; /* Safari */
+                transition-duration: 0.4s;
+                cursor: pointer;
+            }
+
+            .btn-default {
+                background-color: white;
+                color: black;
+                border: 2px solid #4CAF50;
+            }
+
+            .btn-default:hover {
+                background-color: #4CAF50;
+                color: white;
+            }
+            .alert {
+                padding: 20px;
+                background-color: #99e599; /* green */
+                color: purple;
+                margin-bottom: 15px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="alert" style="width: 80%;">
+            <h1 th:text="#{greeting(${name})}">
+            </h1>
+            <p th:text="${message}">
+            </p>
+        </div>
+        <p>
+            <a authority="button" class="btn btn-default" th:href="${reactionUrl}" th:align="center">React</a>
+        </p>
+        <div class="alert" style="width: 80%;">
+            <span th:text="${#dates.format(subscriptionDate)}">22-10-2019</span>
+            <p>
+                Regards, <br />
+                &emsp; <em>&copy; The MungwinCore Team</em>
+            </p>
+        </div>
+    </body>
+</html>
