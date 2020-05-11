@@ -40,6 +40,6 @@ public class HttpUtils {
   }
 
   public static String getLogoUrl() {
-    return baseUrl + "/api/public/resources/logos/impact-logo.png";
+    return baseUrl + "/api/public/resources/logos/logo-mini.png";
   }
 }

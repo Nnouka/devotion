@@ -210,7 +210,7 @@ public class UserServiceImpl implements UserService {
   }
 
   private String getLogoUrl() {
-    return HttpUtils.getBaseUrl() + "/api/public/resources/logos/impact-logo.png";
+    return HttpUtils.getLogoUrl();
   }
 
   private String getActivationUrl(String email) {
