@@ -123,3 +123,18 @@ CREATE TABLE IF NOT EXISTS pulse_prayer_point (
    constraint pulse_id_pp_join_k foreign key (pulse_id) references pulses(id),
    constraint reference_id_pp_join_k foreign key (prayer_point_id) references prayer_points(id)
 );
+
+CREATE TABLE IF NOT EXISTS `countries`
+(
+    `id`            BIGINT       NOT NULL AUTO_INCREMENT,
+    `iso2`          char(2)      NOT NULL,
+    `name`          varchar(100) NOT NULL,
+    `iso3`          char(3)     DEFAULT NULL,
+    `num_code`      smallint(6) DEFAULT NULL,
+    `phone_code`    varchar(100) NOT NULL,
+    `currency_name` varchar(80) DEFAULT NULL,
+    `currency_code` varchar(80) DEFAULT NULL,
+    `lang`          varchar(80) DEFAULT NULL,
+    `locale`        varchar(3)  DEFAULT NULL,
+    PRIMARY KEY (`id`)
+);

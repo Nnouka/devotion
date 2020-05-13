@@ -1,12 +1,13 @@
 package com.nouks.devotion.domain.models.embeds;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.Embeddable;
 
 @Embeddable
-@Data
+@Getter
+@Setter
 public class LocationAddress {
     private String country;
     private String region;
@@ -18,5 +19,8 @@ public class LocationAddress {
         this.region = region;
         this.city = city;
         this.address = address;
+    }
+    public LocationAddress(){
+
     }
 }
