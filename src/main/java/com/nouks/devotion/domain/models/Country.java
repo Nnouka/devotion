@@ -25,7 +25,7 @@ public class Country {
     private String currencyCode;
     private String lang;
     private String locale;
-    @OneToMany(mappedBy = "congregation")
+    @OneToMany(mappedBy = "country")
     private List<User> users;
 
 }
