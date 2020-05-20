@@ -21,7 +21,8 @@ public class PublicResourceServiceImpl implements PublicResourceService {
     @Override
     public List<SimpleCountryInfoDTO> listAllCountries() {
         return countryRepository.findAll().stream().map(
-                country -> new SimpleCountryInfoDTO(country.getId(), country.getName())
+                country -> new SimpleCountryInfoDTO(country.getId(), country.getName(),
+                        country.getLang(), country.getLocale())
         ).collect(Collectors.toList());
     }
 }

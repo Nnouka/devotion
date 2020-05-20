@@ -2,6 +2,9 @@ package com.nouks.devotion.domain.models;
 
 
 import com.nouks.devotion.domain.models.pivots.CongregationUser;
+import com.nouks.devotion.domain.models.pivots.PulseRelevantToUser;
+import com.nouks.devotion.domain.models.pivots.UserCheckedPulse;
+import com.nouks.devotion.domain.models.pivots.UserCommentedPulse;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -43,4 +46,13 @@ public class User {
   private List<Role> roles;
   @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
   private List<CongregationUser> congregationUsers;
+  @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+  private List<UserCheckedPulse> userCheckedPulses;
+  @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+  private List<UserCommentedPulse> userCommentedPulses;
+  @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+  private List<PulseRelevantToUser> pulseRelevantToUsers;
+  @ManyToOne
+  @JoinColumn(name = "country_id")
+  private Country country;
 }

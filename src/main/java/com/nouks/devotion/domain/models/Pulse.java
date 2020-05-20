@@ -1,5 +1,8 @@
 package com.nouks.devotion.domain.models;
 
+import com.nouks.devotion.domain.models.pivots.PulseRelevantToUser;
+import com.nouks.devotion.domain.models.pivots.UserCheckedPulse;
+import com.nouks.devotion.domain.models.pivots.UserCommentedPulse;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -39,4 +42,10 @@ public class Pulse {
             inverseJoinColumns = @JoinColumn(name = "devotion_id")
     )
     private List<Devotional> devotionals;
+    @OneToMany(mappedBy = "pulse", cascade = CascadeType.ALL)
+    private List<UserCheckedPulse> userCheckedPulses;
+    @OneToMany(mappedBy = "pulse", cascade = CascadeType.ALL)
+    private List<UserCommentedPulse> userCommentedPulses;
+    @OneToMany(mappedBy = "pulse", cascade = CascadeType.ALL)
+    private List<PulseRelevantToUser> pulseRelevantToUsers;
 }

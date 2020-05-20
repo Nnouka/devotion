@@ -3,6 +3,7 @@ package com.nouks.devotion.domain.models;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Data
@@ -24,4 +25,7 @@ public class Country {
     private String currencyCode;
     private String lang;
     private String locale;
+    @OneToMany(mappedBy = "congregation")
+    private List<User> users;
+
 }

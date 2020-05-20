@@ -8,4 +8,6 @@ import lombok.Data;
 public class SimpleCountryInfoDTO {
     private Long id;
     private String name;
+    private String lang;
+    private String locale;
 }

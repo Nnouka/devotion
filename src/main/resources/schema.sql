@@ -8,9 +8,11 @@ CREATE TABLE IF NOT EXISTS users (
     enabled boolean not null default '0',
     token_expired boolean not null default '0',
     password_reset_code VARCHAR(100) null ,
+    country_id BIGINT NULL ,
     email_verified_at timestamp null default null,
     created_at timestamp default CURRENT_TIMESTAMP,
-    updated_at timestamp default CURRENT_TIMESTAMP
+    updated_at timestamp default CURRENT_TIMESTAMP,
+    constraint fk_country_id foreign key (country_id) references countries(id)
 );
 
 CREATE TABLE IF NOT EXISTS roles (
@@ -137,4 +139,48 @@ CREATE TABLE IF NOT EXISTS `countries`
     `lang`          varchar(80) DEFAULT NULL,
     `locale`        varchar(3)  DEFAULT NULL,
     PRIMARY KEY (`id`)
+);
+
+CREATE TABLE IF NOT EXISTS user_checked_pulse
+(
+    id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY ,
+    user_id BIGINT NOT NULL,
+    pulse_id BIGINT NOT NULL,
+    checked_at timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    constraint fk_usr_id_pc foreign key (user_id) references users(id),
+    constraint fk_pulse_id_uc foreign key (pulse_id) references pulses(id)
+);
+
+CREATE TABLE IF NOT EXISTS comments (
+    id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY ,
+    text LONGTEXT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS user_commented_pulse
+(
+    id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY ,
+    user_id BIGINT NOT NULL,
+    pulse_id BIGINT NOT NULL,
+    comment_id BIGINT NOT NULL ,
+    commented_at timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    constraint fk_usr_id_cmt foreign key (user_id) references users(id),
+    constraint fk_cmt_id_cmt foreign key (comment_id) references comments(id),
+    constraint fk_pulse_id_cmt foreign key (pulse_id) references pulses(id)
+);
+
+CREATE TABLE IF NOT EXISTS relevance (
+    id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY ,
+    type VARCHAR(100) NOT NULL ,
+    featured_image VARCHAR(256) NULL
+);
+
+CREATE TABLE IF NOT EXISTS pulse_relevant_to_user (
+  id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY ,
+  user_id BIGINT NOT NULL,
+  pulse_id BIGINT NOT NULL,
+  relevance_id BIGINT NOT NULL ,
+  relevant_at timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  constraint fk_usr_id_rel foreign key (user_id) references users(id),
+  constraint fk_rel_id_rel foreign key (relevance_id) references relevance(id),
+  constraint fk_pulse_id_rel foreign key (pulse_id) references pulses(id)
 );
