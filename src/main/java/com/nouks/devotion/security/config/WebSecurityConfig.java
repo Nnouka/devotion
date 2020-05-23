@@ -67,6 +67,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
       .permitAll()
     .and().csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());*/
       http.exceptionHandling().accessDeniedPage("/");
+    http.addFilter(corsFilter());
   }
 
 
