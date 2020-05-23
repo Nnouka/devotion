@@ -23,6 +23,7 @@ import java.util.Base64;
 
 @RestController
 @RequestMapping("api/public/user")
+//@CrossOrigin(origins = "*")
 public class UserController {
   private UserService userService;
   private AuthServerProps authServerProps;
