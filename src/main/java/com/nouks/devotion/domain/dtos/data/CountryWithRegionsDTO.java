@@ -1,25 +1,26 @@
 package com.nouks.devotion.domain.dtos.data;
 
 import com.nouks.devotion.domain.models.Country;
-import com.nouks.devotion.domain.models.Region;
-import lombok.AllArgsConstructor;
-import lombok.Data;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class SimpleCountryInfoDTO {
+public class CountryWithRegionsDTO {
     private Long id;
     private String name;
     private String lang;
     private String locale;
+    private List<RegionDTO> regions;
 
-    public SimpleCountryInfoDTO(Country country) {
+    public CountryWithRegionsDTO(Country country) {
         if (country != null) {
             this.id = country.getId();
             this.name = country.getName();
             this.lang = country.getLang();
             this.locale = country.getLocale();
+            this.regions = country.getRegions().stream().map(
+                    RegionDTO::new
+            ).collect(Collectors.toList());
         }
     }
 
@@ -53,5 +54,13 @@ public class SimpleCountryInfoDTO {
 
     public void setLocale(String locale) {
         this.locale = locale;
+    }
+
+    public List<RegionDTO> getRegions() {
+        return regions;
+    }
+
+    public void setRegions(List<RegionDTO> regions) {
+        this.regions = regions;
     }
 }

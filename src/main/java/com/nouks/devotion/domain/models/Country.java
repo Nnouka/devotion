@@ -27,5 +27,7 @@ public class Country {
     private String locale;
     @OneToMany(mappedBy = "country")
     private List<User> users;
+    @OneToMany(mappedBy = "country")
+    private List<Region> regions;
 
 }

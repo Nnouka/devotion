@@ -1,4 +1,41 @@
 
+CREATE TABLE IF NOT EXISTS `countries`
+(
+    `id`            INT(11)       NOT NULL AUTO_INCREMENT,
+    `iso2`          char(2)      NOT NULL,
+    `name`          varchar(100) NOT NULL,
+    `iso3`          char(3)     DEFAULT NULL,
+    `num_code`      smallint(6) DEFAULT NULL,
+    `phone_code`    varchar(100) NOT NULL,
+    `currency_name` varchar(80) DEFAULT NULL,
+    `currency_code` varchar(80) DEFAULT NULL,
+    `lang`          varchar(80) DEFAULT NULL,
+    `locale`        varchar(3)  DEFAULT NULL,
+    PRIMARY KEY (`id`)
+);
+
+CREATE TABLE IF NOT EXISTS regions (
+   id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY ,
+   `name` varchar(100) NOT NULL ,
+   country_id INT(11) NOT NULL ,
+   constraint fk_country_reg_key foreign key (country_id) references countries(id)
+);
+
+CREATE TABLE IF NOT EXISTS cities (
+  id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY ,
+  `name` varchar(100) NOT NULL ,
+  region_id BIGINT NOT NULL ,
+  constraint fk_region_city_key foreign key (region_id) references regions(id)
+);
+
+CREATE TABLE IF NOT EXISTS location_addresses (
+  id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY ,
+  address varchar(256) NOT NULL ,
+  latitude double NULL ,
+  longitude double NULL ,
+  city_id BIGINT NOT NULL ,
+  constraint fk_city_addr_key foreign key (city_id) references cities(id)
+);
 CREATE TABLE IF NOT EXISTS users (
     id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY ,
     full_name VARCHAR(256) NULL ,
@@ -8,7 +45,7 @@ CREATE TABLE IF NOT EXISTS users (
     enabled boolean not null default '0',
     token_expired boolean not null default '0',
     password_reset_code VARCHAR(100) null ,
-    country_id BIGINT NULL ,
+    country_id INT NULL ,
     email_verified_at timestamp null default null,
     created_at timestamp default CURRENT_TIMESTAMP,
     updated_at timestamp default CURRENT_TIMESTAMP,
@@ -54,10 +91,9 @@ CREATE TABLE IF NOT EXISTS role_privilege (
 CREATE TABLE IF NOT EXISTS congregations (
     id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY ,
     `name` varchar(256) null ,
-    country varchar (256) not null,
-    region varchar (256) not null,
-    city varchar (256) not null,
-    address varchar (256) not null
+    display_pic varchar(256) null ,
+    location_address_id BIGINT NOT NULL,
+    constraint fk_loc_addr_id foreign key (location_address_id) references location_addresses(id)
 );
 
 CREATE TABLE IF NOT EXISTS congregation_user (
@@ -126,20 +162,6 @@ CREATE TABLE IF NOT EXISTS pulse_prayer_point (
    constraint reference_id_pp_join_k foreign key (prayer_point_id) references prayer_points(id)
 );
 
-CREATE TABLE IF NOT EXISTS `countries`
-(
-    `id`            BIGINT       NOT NULL AUTO_INCREMENT,
-    `iso2`          char(2)      NOT NULL,
-    `name`          varchar(100) NOT NULL,
-    `iso3`          char(3)     DEFAULT NULL,
-    `num_code`      smallint(6) DEFAULT NULL,
-    `phone_code`    varchar(100) NOT NULL,
-    `currency_name` varchar(80) DEFAULT NULL,
-    `currency_code` varchar(80) DEFAULT NULL,
-    `lang`          varchar(80) DEFAULT NULL,
-    `locale`        varchar(3)  DEFAULT NULL,
-    PRIMARY KEY (`id`)
-);
 
 CREATE TABLE IF NOT EXISTS user_checked_pulse
 (

@@ -1,5 +1,7 @@
 package com.nouks.devotion.controllers;
 
+import com.nouks.devotion.domain.dtos.data.CountryWithRegionsDTO;
+import com.nouks.devotion.domain.dtos.data.RegionWithCitiesDTO;
 import com.nouks.devotion.domain.dtos.data.SimpleCountryInfoDTO;
 import com.nouks.devotion.domain.services.interfaces.PublicResourceService;
 import com.nouks.devotion.utils.FileHelper;
@@ -51,5 +53,15 @@ public class PublicResourcesController {
     @GetMapping("/countries")
     public ResponseEntity<List<SimpleCountryInfoDTO>> listAllCountries() {
         return ResponseEntity.ok(publicResourceService.listAllCountries());
+    }
+    @GetMapping("/countries/{countryId}/regions")
+    public ResponseEntity<CountryWithRegionsDTO> getCountryWithRegions(
+            @PathVariable("countryId") Long countryId) {
+        return ResponseEntity.ok(publicResourceService.getCountryRegions(countryId));
+    }
+    @GetMapping("/countries/regions/{regionId}/cities")
+    public ResponseEntity<RegionWithCitiesDTO> getRegionWithCities(
+            @PathVariable("regionId") Long regionId ) {
+        return ResponseEntity.ok(publicResourceService.getRegionCities(regionId));
     }
 }

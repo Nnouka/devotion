@@ -1,6 +1,5 @@
 package com.nouks.devotion.domain.models;
 
-import com.nouks.devotion.domain.models.embeds.LocationAddress;
 import com.nouks.devotion.domain.models.pivots.CongregationUser;
 import lombok.Data;
 
@@ -15,7 +14,10 @@ public class Congregation {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    @Embedded
+    @Column(name = "desplay_pic")
+    private String displayPic;
+    @ManyToOne
+    @JoinColumn(name = "location_address_id")
     private LocationAddress locationAddress;
     @OneToMany(mappedBy = "congregation", cascade = CascadeType.ALL)
     private List<CongregationUser> congregationUsers;

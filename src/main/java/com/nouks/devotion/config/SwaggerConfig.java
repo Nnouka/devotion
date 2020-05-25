@@ -51,7 +51,7 @@ public class SwaggerConfig {
                                 .required(true)
                                 .build()))
                 .select()
-                .apis(RequestHandlerSelectors.any())
+                .apis(RequestHandlerSelectors.basePackage(basePackage))
                 .paths(Predicates.not(PathSelectors.regex("/error.*")))
                 .paths(Predicates.not(PathSelectors.regex("/actuator.*")))
                 .build();
