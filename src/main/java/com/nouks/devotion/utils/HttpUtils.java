@@ -8,6 +8,7 @@ import java.nio.charset.StandardCharsets;
 
 public class HttpUtils {
   private static String baseUrl;
+  private static String lang;
   public static HttpHeaders createAuthHeader(String username, String password) {
     return new HttpHeaders(){{
       String auth = username + ":" + password;
@@ -42,4 +43,6 @@ public class HttpUtils {
   public static String getLogoUrl() {
     return baseUrl + "/api/public/resources/logos/logo-mini.png";
   }
+  public static void setLang(String lang) {HttpUtils.lang = lang;}
+  public static String getLang(){return (lang == null ||  lang.isEmpty()) ? "en" : lang;}
 }

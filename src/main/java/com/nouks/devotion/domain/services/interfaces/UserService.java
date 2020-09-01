@@ -17,4 +17,5 @@ public interface UserService {
   List<User> getAdmins();
   void forgotPassword(SimpleMailDTO simpleMailDTO);
   void resetPassword(String code, PasswordDTO dto);
+  Boolean userExists(String externalId);
 }

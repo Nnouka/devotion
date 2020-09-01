@@ -143,6 +143,11 @@ public class UserServiceImpl implements UserService {
     userRepository.save(user);
   }
 
+  @Override
+  public Boolean userExists(String externalId) {
+    return userRepository.findById(Long.parseLong(externalId)).isPresent();
+  }
+
   private boolean rolesContainsAdmin(List<Role> roles) {
     for (Role role: roles) {
       if (role != null && role.getName().equals("ADMIN")) return true;
@@ -179,7 +184,7 @@ public class UserServiceImpl implements UserService {
       new MailCtxDto("activationUrl", getActivationUrl(user.getEmail())))
     );
     Thread thread = new Thread(() -> mailClient.sendActivationMail(emailAddress,
-      ApiConstants.ACCOUNT_ACTIVATION_FROM_ADDRESS, ApiConstants.ACCOUNT_ACTIVATION_SUBJECT, Locale.ENGLISH, mailCtxDtos));
+      ApiConstants.ACCOUNT_ACTIVATION_FROM_ADDRESS, ApiConstants.ACCOUNT_ACTIVATION_SUBJECT, getLocale(), mailCtxDtos));
     thread.start();
   }
 
@@ -192,7 +197,7 @@ public class UserServiceImpl implements UserService {
       new MailCtxDto("baseUrl", HttpUtils.getBaseUrl()))
     );
     Thread thread = new Thread(() -> mailClient.sendWelcomeMail(emailAddress,
-      ApiConstants.INFO_FROM_ADDRESS, ApiConstants.GET_STARTED_SUBJECT, Locale.ENGLISH, mailCtxDtos));
+      ApiConstants.INFO_FROM_ADDRESS, ApiConstants.GET_STARTED_SUBJECT, getLocale(), mailCtxDtos));
     thread.start();
   }
 
@@ -248,6 +253,12 @@ public class UserServiceImpl implements UserService {
       }
       return user;
     }
+  }
+  private String getLang() {
+    return HttpUtils.getLang();
+  }
+  private Locale getLocale() {
+    return new Locale(getLang(), "");
   }
 
 }

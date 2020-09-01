@@ -29,4 +29,7 @@ public class CongregationUser {
         this.user = user;
         this.minister = minister;
     }
+
+    public CongregationUser() {
+    }
 }

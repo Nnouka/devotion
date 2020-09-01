@@ -1,4 +1,4 @@
-package com.nouks.devotion.domain.models;
+package com.nouks.devotion.domain.models.demographs;
 
 import lombok.Data;
 

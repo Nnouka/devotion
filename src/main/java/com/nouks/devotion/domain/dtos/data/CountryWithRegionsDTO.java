@@ -1,6 +1,6 @@
 package com.nouks.devotion.domain.dtos.data;
 
-import com.nouks.devotion.domain.models.Country;
+import com.nouks.devotion.domain.models.demographs.Country;
 
 import java.util.List;
 import java.util.stream.Collectors;

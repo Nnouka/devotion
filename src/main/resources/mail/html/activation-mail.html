@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
     <head>
@@ -45,7 +44,7 @@
             background-color: #666;
             padding:10px 16px;
             font-weight:bold;
-            margin-right:10px;
+            margin: 0 auto!important;
             text-align:center;
             cursor:pointer;
             display: inline-block;
@@ -53,7 +52,6 @@
 
           p.callout {
             padding:15px;
-            background-color:#ECF8FF;
             margin-bottom: 15px;
           }
           .callout a {
@@ -75,17 +73,16 @@
             display:block;
             text-align:center;
           }
-          .btn {
-            padding: 3px 7px;
-            font-size:12px;
-            margin-bottom:10px;
-            text-decoration:none;
-            color: #FFF;font-weight:bold;
-            display:block;
-            text-align:center;
-          }
           .btn.btn-default {
-            background-color: #8fd19e!important;
+            background-color: #1daced !important;
+            padding: 15px !important;
+            width: 100%;
+          }
+          .shadow {
+            box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+          }
+          btn.btn-large{
+            padding: 20px !important;
           }
           a.fb { background-color: #3B5998!important; }
           a.tw { background-color: #1daced!important; }
@@ -254,17 +251,17 @@
     <body>
 
     <!-- HEADER -->
-    <table class="head-wrap">
+    <table class="head-wrap shadow">
       <tr>
         <td></td>
-        <td class="header container" style="background-color: #ECF8FF;" >
+        <td class="header container">
           <div class="content">
             <table>
               <tr>
-                <td>
+                <td >
                   <img th:attr="src=${logoUrl}"
                        alt="head" style="width: 100px; height: 50px;" src=""/></td>
-                <td style="alignment: right"><h4 class="collapse" style="color: #1e7e34;">Verification</h4></td>
+                <td style="alignment: right"><h4 class="collapse" style="color: #1daced; font-family: 'Copperplate Gothic Light',serif">Verification</h4></td>
               </tr>
             </table>
           </div>
@@ -286,17 +283,20 @@
                 <td>
                   <h3 th:text="#{greeting(${name})}">Hi, Wai</h3>
                   <p class="lead">
-                    You successfully signed up to <b th:text="${appName}">Devotion For the Churches of Christ</b> on
+                    <span th:text="#{sign_up_success}">You successfully signed up to</span> <b th:text="${appName}">Devotion For the Churches of Christ</b>
+                    <span th:text="#{on}">on</span>
                     <span th:text="${#dates.format(subscriptionDate)}">22-10-2019</span>
                     <br />
-                    <a role="button" class="btn btn-default" th:href="${activationUrl}" th:align="center">Verify Your Account</a>
                   </p>
+                  <a role="button" class="btn btn-default shadow"
+                     th:href="${activationUrl}"
+                     th:align="center" th:text="#{verification}">Verify Your Account</a>
                   <p class="callout">
-                    Or copy this link into your browser: <br /> <strong th:text="${activationUrl}"></strong>
+                    <span th:text="#{copy_to_browser}">Or copy this link into your browser:</span> <br /> <strong th:text="${activationUrl}"></strong>
                   </p><!-- /Callout Panel -->
 
                   <!-- social & contact -->
-                  <table class="social" style="width: 100%; background-color: #8fd19e;">
+                  <table class="social" style="width: 100%;">
                     <tr>
                       <td>
 
@@ -305,7 +305,7 @@
                           <tr>
                             <td>
 
-                              <h5 class="">Connect with Us:</h5>
+                              <h5 class="" th:text="#{connect_with_us}">Connect with Us:</h5>
                               <p class=""><a href="#" class="soc-btn fb">Facebook</a> <a href="#" class="soc-btn tw">Twitter</a> <a href="#" class="soc-btn gp">Google+</a></p>
 
 
@@ -358,7 +358,7 @@
                   </p>
                 </td>
               </tr>
-              <tr style="background-color: #ECF8FF;">
+              <tr>
                 <td style="align-content: center">
                   <p>
                     Regards, <br />

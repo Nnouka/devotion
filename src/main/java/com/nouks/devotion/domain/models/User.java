@@ -1,6 +1,8 @@
 package com.nouks.devotion.domain.models;
 
 
+import com.nouks.devotion.domain.models.demographs.Country;
+import com.nouks.devotion.domain.models.demographs.LocationAddress;
 import com.nouks.devotion.domain.models.pivots.CongregationUser;
 import com.nouks.devotion.domain.models.pivots.PulseRelevantToUser;
 import com.nouks.devotion.domain.models.pivots.UserCheckedPulse;
@@ -53,6 +55,6 @@ public class User {
   @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
   private List<PulseRelevantToUser> pulseRelevantToUsers;
   @ManyToOne
-  @JoinColumn(name = "country_id")
-  private Country country;
+  @JoinColumn(name = "location_address_id")
+  private LocationAddress locationAddress;
 }

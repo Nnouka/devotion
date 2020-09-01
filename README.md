@@ -20,3 +20,26 @@ Prayer point is, an issue and God’s answer
 
 # Domain Model
 ![Devotion_Domain_Model](./images/domain_models.png)
+
+## Creating a congregation
+
+1. Select a suitable name for a congregation
+
+endpoint: `api/protected/congregations/create`
+
+expected request
+```json
+{
+  "name": "Friendly name"
+}
+```
+
+expected response
+```json
+{
+  "id": 1,
+  "name": "Friendly name",
+  "displayPic": null,
+  "fullAddress": null
+}
+```

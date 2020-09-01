@@ -10,6 +10,7 @@ import com.nouks.devotion.security.dto.RefreshTokenRequest;
 import com.nouks.devotion.security.props.AuthServerProps;
 import com.nouks.devotion.utils.HttpUtils;
 import com.nouks.devotion.security.utils.OAuth2Token;
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.LinkedMultiValueMap;
@@ -22,7 +23,7 @@ import javax.validation.Valid;
 import java.util.Base64;
 
 @RestController
-@RequestMapping("api/public/user")
+@RequestMapping("/api/public/user")
 //@CrossOrigin(origins = "*")
 public class UserController {
   private UserService userService;
@@ -54,6 +55,7 @@ public class UserController {
     params.add("username", loginRequestDTO.getUsername());
     params.add("password", loginRequestDTO.getPassword());
     HttpUtils.setBaseUrl(request.getScheme(), request.getServerName(), request.getServerPort());
+    HttpUtils.setLang(request.getHeader("lang"));
     return ResponseEntity.ok(securityRestClient.getAccessToken(params));
   }
   @PostMapping("/token/refresh")
@@ -64,15 +66,17 @@ public class UserController {
   @PostMapping("/register")
   public ResponseEntity registerUser(@RequestBody @Valid UserRegistrationDto dto, HttpServletRequest request) {
     HttpUtils.setBaseUrl(request.getScheme(), request.getServerName());
+    HttpUtils.setLang(request.getHeader("lang"));
     userService.registerUser(dto);
     return ResponseEntity.noContent().build();
   }
   @GetMapping("/verify")
   public RedirectView verifyAccount(@RequestParam("ref") String email, HttpServletRequest request) {
     HttpUtils.setBaseUrl(request.getScheme(), request.getServerName());
+    HttpUtils.setLang(request.getHeader("lang"));
     userService.verifyAccount(email);
-    String m = Base64.getUrlEncoder().encodeToString("Account verification Successful. Please login".getBytes());
-    return new RedirectView("/#/public/login?m=" + m);
+    String m = "reg_verified";
+    return new RedirectView("/login?r=" + m);
   }
 
   @PostMapping("/password/forgot")
@@ -95,5 +99,13 @@ public class UserController {
     HttpUtils.setBaseUrl(request.getScheme(), request.getServerName());
     userService.resetPassword(code, dto);
     return ResponseEntity.noContent().build();
+  }
+  @GetMapping("/exists")
+  public ResponseEntity<Boolean> userExists(@RequestParam("externalId") String externalId) {
+    return ResponseEntity.ok(userService.userExists(externalId));
+  }
+  @PostMapping("/subscribe")
+  public ResponseEntity<Boolean> subscribeUser(@RequestParam("email") String email) {
+    return email.trim().contains("@") ? ResponseEntity.ok(true) : ResponseEntity.ok(false);
   }
 }

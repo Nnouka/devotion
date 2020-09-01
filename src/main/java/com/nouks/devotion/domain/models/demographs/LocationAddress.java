@@ -1,8 +1,11 @@
-package com.nouks.devotion.domain.models;
+package com.nouks.devotion.domain.models.demographs;
 
+import com.nouks.devotion.domain.models.Congregation;
+import com.nouks.devotion.domain.models.User;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Data
@@ -17,4 +20,8 @@ public class LocationAddress {
     private String address;
     private double latitude;
     private double longitude;
+    @OneToMany(mappedBy = "locationAddress")
+    private List<User> users;
+    @OneToMany(mappedBy = "locationAddress")
+    private List<Congregation> congregations;
 }

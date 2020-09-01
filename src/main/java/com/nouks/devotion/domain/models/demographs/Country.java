@@ -1,5 +1,6 @@
-package com.nouks.devotion.domain.models;
+package com.nouks.devotion.domain.models.demographs;
 
+import com.nouks.devotion.domain.models.User;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -25,8 +26,6 @@ public class Country {
     private String currencyCode;
     private String lang;
     private String locale;
-    @OneToMany(mappedBy = "country")
-    private List<User> users;
     @OneToMany(mappedBy = "country")
     private List<Region> regions;
 

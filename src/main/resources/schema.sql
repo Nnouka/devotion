@@ -45,11 +45,11 @@ CREATE TABLE IF NOT EXISTS users (
     enabled boolean not null default '0',
     token_expired boolean not null default '0',
     password_reset_code VARCHAR(100) null ,
-    country_id INT NULL ,
+    location_address_id BIGINT NULL,
     email_verified_at timestamp null default null,
     created_at timestamp default CURRENT_TIMESTAMP,
     updated_at timestamp default CURRENT_TIMESTAMP,
-    constraint fk_country_id foreign key (country_id) references countries(id)
+    constraint fk_usr_loc_addr_id foreign key (location_address_id) references location_addresses(id)
 );
 
 CREATE TABLE IF NOT EXISTS roles (
@@ -92,15 +92,15 @@ CREATE TABLE IF NOT EXISTS congregations (
     id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY ,
     `name` varchar(256) null ,
     display_pic varchar(256) null ,
-    location_address_id BIGINT NOT NULL,
+    location_address_id BIGINT NULL,
     constraint fk_loc_addr_id foreign key (location_address_id) references location_addresses(id)
 );
 
 CREATE TABLE IF NOT EXISTS congregation_user (
+    id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY ,
     user_id BIGINT NOT NULL,
     congregation_id BIGINT NOT NULL,
     is_minister BOOLEAN NOT NULL default '0',
-    primary key (user_id, congregation_id),
     constraint user_id_con_join_k foreign key (user_id) references users(id),
     constraint congregation_id_con_join_k foreign key (congregation_id) references congregations(id)
 );

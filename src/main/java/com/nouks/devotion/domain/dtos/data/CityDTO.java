@@ -1,6 +1,6 @@
 package com.nouks.devotion.domain.dtos.data;
 
-import com.nouks.devotion.domain.models.City;
+import com.nouks.devotion.domain.models.demographs.City;
 
 public class CityDTO {
     private Long id;

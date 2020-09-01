@@ -5,6 +5,7 @@ import com.nouks.devotion.domain.dtos.data.RegionWithCitiesDTO;
 import com.nouks.devotion.domain.dtos.data.SimpleCountryInfoDTO;
 import com.nouks.devotion.domain.services.interfaces.PublicResourceService;
 import com.nouks.devotion.utils.FileHelper;
+import com.nouks.devotion.utils.FileHelperConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,7 @@ public class PublicResourcesController {
     private Logger logger = LoggerFactory.getLogger(PublicResourcesController.class);
     private FileHelper fileHelper;
     private PublicResourceService publicResourceService;
+    private FileHelperConfig fileHelperConfig;
 
     @Autowired
     public PublicResourcesController(PublicResourceService publicResourceService) {
@@ -39,6 +41,10 @@ public class PublicResourcesController {
     public void setFileHelper(FileHelper fileHelper) {
         this.fileHelper = fileHelper;
     }
+    @Autowired
+    public void setFileHelperConfig(FileHelperConfig fileHelperConfig) {
+        this.fileHelperConfig = fileHelperConfig;
+    }
 
     @GetMapping("/logos/{fileName:.+}")
     public void loadLogo(@PathVariable String fileName, HttpServletResponse response) {
@@ -47,6 +53,17 @@ public class PublicResourcesController {
             StreamUtils.copy(resource.getInputStream(), response.getOutputStream());
         } catch (IOException ex) {
             logger.info("Could not Load File");
+        }
+    }
+    @GetMapping("/widgets/{fileId}")
+    public void loadWidget(@PathVariable String fileId, HttpServletResponse response) {
+//        logger.info("file helper: {}", fileHelperConfig.getRootFolder());
+        fileHelper.setFileStorageLocation("widgets", fileHelperConfig);
+        Resource resource = fileHelper.loadFileAsResource(fileId + ".js");
+        try{
+            StreamUtils.copy(resource.getInputStream(), response.getOutputStream());
+        } catch (IOException ex) {
+            logger.info("Could not Load Specified Widget");
         }
     }
 

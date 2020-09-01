@@ -32,6 +32,16 @@ public class FileHelper {
     }
 
     public void setFileStorageLocation(String folder) {
+        logger.info("folder {}", folder);
+        folder = resolveFolder(folder);
+        this.fileStorageLocation = Paths.get(folder)
+                .toAbsolutePath().normalize();
+        logger.info(fileStorageLocation.toString());
+    }
+
+    public void setFileStorageLocation(String folder, FileHelperConfig fileHelperConfig) {
+        logger.info("folder {}", folder);
+        this.fileHelperConfig = fileHelperConfig;
         folder = resolveFolder(folder);
         this.fileStorageLocation = Paths.get(folder)
                 .toAbsolutePath().normalize();
@@ -56,6 +66,8 @@ public class FileHelper {
     }
     public String resolveFolder(String folder) {
         folder = folder.trim();
+        logger.info("resolving {}", folder);
+        logger.info("Starts with {}",folder.startsWith("/") );
         return folder.startsWith("/") ? fileHelperConfig.getRootFolder() + folder : fileHelperConfig.getRootFolder() + "/" + folder;
     }
 }

@@ -1,9 +1,6 @@
 package com.nouks.devotion.domain.dtos.data;
 
-import com.nouks.devotion.domain.models.Region;
-
-import java.util.List;
-import java.util.stream.Collectors;
+import com.nouks.devotion.domain.models.demographs.Region;
 
 public class RegionDTO {
     private Long id;

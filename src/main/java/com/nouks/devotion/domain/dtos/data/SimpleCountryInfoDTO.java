@@ -1,12 +1,6 @@
 package com.nouks.devotion.domain.dtos.data;
 
-import com.nouks.devotion.domain.models.Country;
-import com.nouks.devotion.domain.models.Region;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-
-import java.util.List;
-import java.util.stream.Collectors;
+import com.nouks.devotion.domain.models.demographs.Country;
 
 public class SimpleCountryInfoDTO {
     private Long id;
