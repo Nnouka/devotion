@@ -105,20 +105,27 @@ public class UserServiceImpl implements UserService {
   @Override
   public void verifyAccount(String email) {
     logger.info("Verifying email: {}", email);
-    Optional<User> optionalUser = userRepository.findFirstByEmail(email);
-    if (optionalUser.isPresent()) {
-      User user = optionalUser.get();
-      if (user.getEmailVerifiedAt() == null) {
-        user.setEmailVerifiedAt(LocalDateTime.now());
-        logger.info("Welcoming: {}", user.getFullName());
-        userRepository.save(user);
-        // send welcome email
-        sendWelcomeEmail(user);
+    try {
+      Optional<User> optionalUser = userRepository.findFirstByEmail(email);
+      if (optionalUser.isPresent()) {
+        User user = optionalUser.get();
+        if (user.getEmailVerifiedAt() == null) {
+          user.setEmailVerifiedAt(LocalDateTime.now());
+          logger.info("Welcoming: {}", user.getFullName());
+          userRepository.save(user);
+          // send welcome email
+          sendWelcomeEmail(user);
+        }
+      } else {
+        throw new ApiException(ErrorCodes.ACCOUNT_VERIFICATION_FAILED.getMessage(),
+                HttpStatus.CONFLICT, ErrorCodes.ACCOUNT_VERIFICATION_FAILED.toString(), "");
       }
-    } else {
+    }catch (Exception exception) {
+      exception.printStackTrace();
       throw new ApiException(ErrorCodes.ACCOUNT_VERIFICATION_FAILED.getMessage(),
-        HttpStatus.CONFLICT, ErrorCodes.ACCOUNT_VERIFICATION_FAILED.toString(), "");
+              HttpStatus.CONFLICT, ErrorCodes.ACCOUNT_VERIFICATION_FAILED.toString(), "");
     }
+
   }
 
   @Override
