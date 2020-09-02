@@ -12,6 +12,7 @@ import com.nouks.devotion.utils.HttpUtils;
 import com.nouks.devotion.security.utils.OAuth2Token;
 import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -29,6 +30,8 @@ public class UserController {
   private UserService userService;
   private AuthServerProps authServerProps;
   private SecurityRestClient securityRestClient;
+  @Value("${app.ui.base-uri}")
+  private String uiBaseUrl;
 
   @Autowired
   public void setAuthServerProps(AuthServerProps authServerProps) {
@@ -74,9 +77,10 @@ public class UserController {
   public RedirectView verifyAccount(@RequestParam("ref") String email, HttpServletRequest request) {
     HttpUtils.setBaseUrl(request.getScheme(), request.getServerName());
     HttpUtils.setLang(request.getHeader("lang"));
+    System.out.println(uiBaseUrl);
     userService.verifyAccount(email);
     String m = "reg_verified";
-    return new RedirectView("/login?r=" + m);
+    return new RedirectView(uiBaseUrl + "/login?r=" + m);
   }
 
   @PostMapping("/password/forgot")
