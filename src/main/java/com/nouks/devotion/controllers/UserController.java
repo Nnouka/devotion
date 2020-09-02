@@ -80,7 +80,9 @@ public class UserController {
     System.out.println(uiBaseUrl);
     userService.verifyAccount(email);
     String m = "reg_verified";
-    return new RedirectView(uiBaseUrl + "/login?r=" + m);
+    RedirectView redirectView = new RedirectView();
+    redirectView.setUrl(uiBaseUrl + "/login?r=" + m);
+    return redirectView;
   }
 
   @PostMapping("/password/forgot")
