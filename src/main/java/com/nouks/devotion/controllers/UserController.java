@@ -80,9 +80,7 @@ public class UserController {
     System.out.println(uiBaseUrl);
     userService.verifyAccount(email);
     String m = "reg_verified";
-    RedirectView redirectView = new RedirectView();
-    redirectView.setUrl(uiBaseUrl + "/login?r=" + m);
-    return redirectView;
+    return new RedirectView(uiBaseUrl + "/login?r=" + m, false);
   }
 
   @PostMapping("/password/forgot")
@@ -94,8 +92,10 @@ public class UserController {
 
   @GetMapping("/password/init")
   public RedirectView initResetPasswordRequest(@RequestParam("ref") String code) {
-    return new RedirectView("/#/public/password/reset?ref=" +
-      Base64.getUrlEncoder().encodeToString(code.getBytes()));
+    RedirectView redirectView = new RedirectView();
+    redirectView.setUrl(uiBaseUrl + "/password/reset?ref=" +
+            Base64.getUrlEncoder().encodeToString(code.getBytes()));
+    return new RedirectView();
   }
 
   @PostMapping("/password/reset")
