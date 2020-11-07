@@ -22,4 +22,5 @@ public class Congregation {
     private LocationAddress locationAddress;
     @OneToMany(mappedBy = "congregation", cascade = CascadeType.ALL)
     private List<CongregationUser> congregationUsers;
+
 }

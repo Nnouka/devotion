@@ -5,6 +5,7 @@ import com.nouks.devotion.domain.models.User;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -24,4 +25,9 @@ public class LocationAddress {
     private List<User> users;
     @OneToMany(mappedBy = "locationAddress")
     private List<Congregation> congregations;
+
+    public LocationAddress() {
+        this.users = new ArrayList<>();
+        this.congregations = new ArrayList<>();
+    }
 }

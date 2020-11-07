@@ -29,6 +29,7 @@ public enum ErrorCodes {
   INSTITUTION_NOT_FOUND("Institution not found"),
   UNCOMPLETED_TRANSACTION("Transaction is not completed"),
   UNAUTHORIZED_TRANSACTION ("Transaction is unauthorized"),
+  UNAUTHORIZED_ACTION ("Action is unauthorized"),
   PAYMENT_FAILURE("Payment failed"),
   TRANSACTION_NOT_FOUND("Transaction not found"),
   TRANSACTION_COMPLETED("Transaction already completed"),
